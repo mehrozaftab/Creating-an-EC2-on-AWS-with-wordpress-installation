@@ -11,82 +11,80 @@ In this project I aim to learn how a VPC works and how a virtual computer can be
 #!/bin/bash
 
 # Update and upgrade system packages
-apt update -y
-apt upgrade -y
+- apt update -y
+- apt upgrade -y
 
 # Install Apache
-apt install apache2 -y
-systemctl start apache2
-systemctl enable apache2
+- apt install apache2 -y
+- systemctl start apache2
+- systemctl enable apache2
 
 # Install MySQL
-apt install mysql-server -y
-systemctl start mysql
-systemctl enable mysql
+- apt install mysql-server -y
+- systemctl start mysql
+- systemctl enable mysql
 
 # Secure MySQL installation
-# Note: The `mysql_secure_installation` command is interactive and can't be fully automated this way.
-# It’s better to manually run this command after the instance is up or use a more secure method to automate it.
-mysql_secure_installation <<EOF
+- mysql_secure_installation <<EOF
 
-y
-YourPassword
-YourPassword
-y
-y
-EOF
+- y
+- YourPassword
+-YourPassword
+- y
+- y
+-EOF
 
 # Install PHP and required PHP extensions
-apt install php libapache2-mod-php php-mysql php-curl php-json php-cgi -y
+- apt install php libapache2-mod-php php-mysql php-curl php-json php-cgi -y
 
 # Create WordPress database and user
-mysql -u root -p'YourPassword' <<EOF
-CREATE DATABASE wordpress;
-CREATE USER 'YourUser'@'localhost' IDENTIFIED BY 'YourPassword';
-GRANT ALL PRIVILEGES ON wordpress.* TO 'YourUser'@'localhost';
-FLUSH PRIVILEGES;
-EOF
+- mysql -u root -p'YourPassword' <<EOF
+- CREATE DATABASE wordpress;
+- CREATE USER 'YourUser'@'localhost' IDENTIFIED BY 'YourPassword';
+- GRANT ALL PRIVILEGES ON wordpress.* TO 'YourUser'@'localhost';
+- FLUSH PRIVILEGES;
+- EOF
 
 # Download and extract WordPress
-cd /var/www/html
-wget https://wordpress.org/latest.tar.gz
-tar -xvzf latest.tar.gz
-rm latest.tar.gz
+- cd /var/www/html
+- wget https://wordpress.org/latest.tar.gz
+- tar -xvzf latest.tar.gz
+- rm latest.tar.gz
 
 # Move WordPress files
-rsync -av wordpress/* /var/www/html/
-rm -rf wordpress
+- rsync -av wordpress/* /var/www/html/
+- rm -rf wordpress
 
 # Set permissions
-chown -R www-data:www-data /var/www/html/
-chmod -R 755 /var/www/html/
+- chown -R www-data:www-data /var/www/html/
+- chmod -R 755 /var/www/html/
 
 # Configure wp-config.php
-cp /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
-sed -i "s/database_name_here/wordpress/" /var/www/html/wp-config.php
-sed -i "s/username_here/YourUser/" /var/www/html/wp-config.php
-sed -i "s/password_here/YourPassword/" /var/www/html/wp-config.php
-sed -i "s/localhost/localhost/" /var/www/html/wp-config.php
+- cp /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
+- sed -i "s/database_name_here/wordpress/" /var/www/html/wp-config.php
+- sed -i "s/username_here/YourUser/" /var/www/html/wp-config.php
+- sed -i "s/password_here/YourPassword/" /var/www/html/wp-config.php
+- sed -i "s/localhost/localhost/" /var/www/html/wp-config.php
 
 # Configure Apache virtual host
-echo "<VirtualHost *:80>
-    DocumentRoot /var/www/html
-    <Directory /var/www/html>
-        Options Indexes FollowSymLinks
-        AllowOverride All
-        Require all granted
-    </Directory>
-</VirtualHost>" | tee /etc/apache2/sites-available/000-default.conf
+- echo "<VirtualHost *:80>
+    - DocumentRoot /var/www/html
+    - <Directory /var/www/html>
+        - Options Indexes FollowSymLinks
+        - AllowOverride All
+        - Require all granted
+    - </Directory>
+- </VirtualHost>" | tee /etc/apache2/sites-available/000-default.conf
 
 # Enable Apache mod_rewrite
-a2enmod rewrite
+- a2enmod rewrite
 
 # Restart Apache to apply changes
-systemctl restart apache2
+- systemctl restart apache2
 
 # Backup default index.html if present
-if [ -f /var/www/html/index.html ]; then
-    mv /var/www/html/index.html /var/www/html/index.html.bak
-fi
+- if [ -f /var/www/html/index.html ]; then
+    - mv /var/www/html/index.html /var/www/html/index.html.bak
+- fi
 
-echo "WordPress setup complete! Access your site using the server's public IP address."
+- echo "WordPress setup complete! Access your site using the server's public IP address."
