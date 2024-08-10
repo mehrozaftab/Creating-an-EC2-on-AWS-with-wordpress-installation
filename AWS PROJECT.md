@@ -45,10 +45,10 @@ Instance state is present running which confirms that the EC2 instance has been 
 Connect to your instance then press SSH client which will give you a chmod 400 command with your key file. Before copying this command to your terminal, ensure you locate your private key file. As the .PEM key will be located in Downloads, change directory to Downloads and list the content of Downloads.
 This can be done by using the following commands:
 
-'cd Downloads'
-'ls'
-'chmod 400 "your-key.pem"'
-'ssh -i "your-key.pem" yourusername@yourpublicIP.yourVPCregion.compute.amazonaws.com'
+'cd Downloads
+ls
+chmod 400 "your-key.pem"
+ssh -i "your-key.pem" yourusername@yourpublicIP.yourVPCregion.compute.amazonaws.com'
 
  
 Replace "your-key" with the name of your own created key pair
