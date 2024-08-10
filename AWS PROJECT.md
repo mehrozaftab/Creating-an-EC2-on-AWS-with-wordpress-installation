@@ -23,8 +23,7 @@ Once opened, by clicking create VPC, you will be able to see the settings requir
 ## Step 2 - Launching an EC2 instance:
 
 By searching for EC2 and pressing launch instance, we can configure the setting of the virtual computer which will be hosting our wordpress page. Ubuntu was the chosen operating system to launch the instance.
-
-
+![image](https://github.com/user-attachments/assets/d9b08ae4-7070-4f6a-ab24-96e08e40c84b)
 
 An instance type allows you to customise the computing, memory, networking or storage needs. t2. micro was the designated instance with 1 CPU AND 1 GIB memory that refers to 1GB RAM allowing the virtual compute to store and access upto 1GB data in size at a time.
 
@@ -69,13 +68,13 @@ This confirms that now you are connected to your EC2 instance locally.
 - sudo systemctl enable apache2
 
 
-## Step 5 - Installing MYSQL as the database to store and organise the data for your wordpress page:
+## Step 5A - Installing MYSQL as the database to store and organise the data for your wordpress page:
 # Install MySQL server
 - sudo apt install mysql-server -y
 - sudo systemctl start mysql
 - sudo systemctl enable mysql
 
-# Secure MySQL installation
+# Step 5B - Secure MySQL installation
 - sudo mysql_secure_installation <<EOF
 - y
 - YourPassword
@@ -88,7 +87,7 @@ This confirms that now you are connected to your EC2 instance locally.
 
 - sudo apt install php libapache2-mod-php php-mysql php-curl php-json php-cgi -y
 
-## Step 7- Create WordPress database and user:
+## Step 7A - Create WordPress database and user:
 
 - sudo mysql -u root -p'YourPassword.' <<EOF
 - CREATE DATABASE wordpress;
