@@ -44,12 +44,12 @@ Instance state is present running which confirms that the EC2 instance has been 
 
 Connect to your instance then press SSH client which will give you a chmod 400 command with your key file. Before copying this command to your terminal, ensure you locate your private key file. As the .PEM key will be located in Downloads, change directory to Downloads and list the content of Downloads.
 This can be done by using the following commands:
-'''bash
 
 cd Downloads
 ls
 chmod 400 "your-key.pem"
 ssh -i "your-key.pem" yourusername@yourpublicIP.yourVPCregion.compute.amazonaws.com
+
  
 Replace "your-key" with the name of your own created key pair
  The chmod 400 will allow you appropriate permissions.
@@ -58,29 +58,25 @@ Replace "your-key" with the name of your own created key pair
 You will now see that the username on your terminal will now change from your computer device to that of your EC2 instance username
 This confirms that now you are connected to your EC2 instance locally.
 
-Update and upgrade system packages:
-
+# Update and upgrade system packages
 sudo apt update -y
 sudo apt upgrade -y
 
-## Step 4 - Installing Apache to be used as web server for wordpress:
 
+## Step 4 - Installing Apache to be used as web server for wordpress:
 sudo apt install apache2 -y
 sudo systemctl start apache2
 sudo systemctl enable apache2
 
+
 ## Step 5 - Installing MYSQL as the database to store and organise the data for your wordpress page:
-
-Install MySQL
-
+# Install MySQL server
 sudo apt install mysql-server -y
 sudo systemctl start mysql
 sudo systemctl enable mysql
 
-Secure MySQL installation
-
+# Secure MySQL installation
 sudo mysql_secure_installation <<EOF
-
 y
 YourPassword
 YourPassword
@@ -101,6 +97,7 @@ GRANT ALL PRIVILEGES ON wordpress.* TO 'YourUser'@'localhost';
 FLUSH PRIVILEGES;
 EOF
 
+
 ## Step 7 - Download and extract WordPress:
 
 cd /var/www/html
@@ -110,10 +107,11 @@ sudo rm latest.tar.gz
 
 ## Step 8 - ensuring that your wordpress file is entailed into your web directory:
 
-Move WordPress files
+# Move WordPress files
 sudo rsync -av wordpress/* /var/www/html/
 sudo rm -rf wordpress
-the rsync command copies all files from the extracted wordpress directory to the /var/www/html/ directory.
+
+# the rsync command copies all files from the extracted wordpress directory to the /var/www/html/ directory.
 The rm -rf wordpress command removes the now-empty wordpress directory to clean up after the transfer.
 
 ## Step 9 - Set permissions:
@@ -146,6 +144,7 @@ sudo systemctl restart apache2
 if [ -f /var/www/html/index.html ]; then
     mv /var/www/html/index.html /var/www/html/index.html.bak
 fi
+
 
 ## Step 15 - Launching Wordpress page:
 
