@@ -58,7 +58,9 @@ Replace "your-key" with the name of your own created key pair
 You will now see that the username on your terminal will now change from your computer device to that of your EC2 instance username
 This confirms that now you are connected to your EC2 instance locally.
 
-# Update and upgrade system packages
+### Update and Upgrade System Packages
+
+```bash
 sudo apt update -y
 sudo apt upgrade -y
 
