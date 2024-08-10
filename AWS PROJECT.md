@@ -24,7 +24,7 @@ Once opened, by clicking create VPC, you will be able to see the settings requir
 
 By searching for EC2 and pressing launch instance, we can configure the setting of the virtual computer which will be hosting our wordpress page. Ubuntu was the chosen operating system to launch the instance.
 
-[ec2 launch ](<ec2 launch-1.png>)
+
 
 An instance type allows you to customise the computing, memory, networking or storage needs. t2. micro was the designated instance with 1 CPU AND 1 GIB memory that refers to 1GB RAM allowing the virtual compute to store and access upto 1GB data in size at a time.
 
