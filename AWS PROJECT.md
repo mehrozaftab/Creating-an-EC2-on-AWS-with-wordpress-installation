@@ -45,87 +45,87 @@ Instance state is present running which confirms that the EC2 instance has been 
 Connect to your instance then press SSH client which will give you a chmod 400 command with your key file. Before copying this command to your terminal, ensure you locate your private key file. As the .PEM key will be located in Downloads, change directory to Downloads and list the content of Downloads.
 This can be done by using the following commands:
 
-cd Downloads
-ls
-chmod 400 "your-key.pem"
-ssh -i "your-key.pem" yourusername@yourpublicIP.yourVPCregion.compute.amazonaws.com'
+- cd Downloads
+- ls
+- chmod 400 "your-key.pem"
+- ssh -i "your-key.pem" yourusername@yourpublicIP.yourVPCregion.compute.amazonaws.com'
 
  
 Replace "your-key" with the name of your own created key pair
-The chmod 400 will allow you appropriate permissions.
-By using the ssh command from your instance you can now fully connect to your instance on your terminal. The ssh command will appear as 
+ The chmod 400 will allow you appropriate permissions.
+ By using the ssh command from your instance you can now fully connect to your instance on your terminal. The ssh command will appear as 
 
 You will now see that the username on your terminal will now change from your computer device to that of your EC2 instance username
 This confirms that now you are connected to your EC2 instance locally.
 
-```bash
-sudo apt update -y
-sudo apt upgrade -y
+# Update and upgrade system packages
+- sudo apt update -y
+- sudo apt upgrade -y
 
 
 ## Step 4 - Installing Apache to be used as web server for wordpress:
-sudo apt install apache2 -y
-sudo systemctl start apache2
-sudo systemctl enable apache2
+- sudo apt install apache2 -y
+- sudo systemctl start apache2
+- sudo systemctl enable apache2
 
 
 ## Step 5 - Installing MYSQL as the database to store and organise the data for your wordpress page:
 # Install MySQL server
-sudo apt install mysql-server -y
-sudo systemctl start mysql
-sudo systemctl enable mysql
+- sudo apt install mysql-server -y
+- sudo systemctl start mysql
+- sudo systemctl enable mysql
 
 # Secure MySQL installation
-sudo mysql_secure_installation <<EOF
-y
-YourPassword
-YourPassword
-y
-y
-EOF
+- sudo mysql_secure_installation <<EOF
+- y
+- YourPassword
+- YourPassword
+- y
+- y
+- EOF
 
 ## Step 6 - Install PHP and required PHP extensions:
 
-sudo apt install php libapache2-mod-php php-mysql php-curl php-json php-cgi -y
+- sudo apt install php libapache2-mod-php php-mysql php-curl php-json php-cgi -y
 
-## Step 7 - Create WordPress database and user:
+## Step 7- Create WordPress database and user:
 
-sudo mysql -u root -p'YourPassword.' <<EOF
-CREATE DATABASE wordpress;
-CREATE USER 'YourUser'@'localhost' IDENTIFIED BY 'YourPassword.';
-GRANT ALL PRIVILEGES ON wordpress.* TO 'YourUser'@'localhost';
-FLUSH PRIVILEGES;
-EOF
+- sudo mysql -u root -p'YourPassword.' <<EOF
+- CREATE DATABASE wordpress;
+- CREATE USER 'YourUser'@'localhost' IDENTIFIED BY 'YourPassword.';
+- GRANT ALL PRIVILEGES ON wordpress.* TO 'YourUser'@'localhost';
+- FLUSH PRIVILEGES;
+- EOF
 
 
-## Step 7 - Download and extract WordPress:
+## Step 7B - Download and extract WordPress:
 
-cd /var/www/html
-sudo wget https://wordpress.org/latest.tar.gz
-sudo tar -xvzf latest.tar.gz
-sudo rm latest.tar.gz
+- cd /var/www/html
+- sudo wget https://wordpress.org/latest.tar.gz
+- sudo tar -xvzf latest.tar.gz
+- sudo rm latest.tar.gz
 
 ## Step 8 - ensuring that your wordpress file is entailed into your web directory:
 
 # Move WordPress files
-sudo rsync -av wordpress/* /var/www/html/
-sudo rm -rf wordpress
+- sudo rsync -av wordpress/* /var/www/html/
+- sudo rm -rf wordpress
 
-# the rsync command copies all files from the extracted wordpress directory to the /var/www/html/ directory.
+the rsync command copies all files from the extracted wordpress directory to the /var/www/html/ directory.
 The rm -rf wordpress command removes the now-empty wordpress directory to clean up after the transfer.
 
 ## Step 9 - Set permissions:
 
-sudo chown -R www-data:www-data /var/www/html/
-sudo chmod -R 755 /var/www/html/
+- sudo chown -R www-data:www-data /var/www/html/
+- sudo chmod -R 755 /var/www/html/
 
 ## Step 10 - Configure wp-config.php
 
-sudo cp /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
-sudo sed -i "s/database_name_here/wordpress/" /var/www/html/wp-config.php
-sudo sed -i "s/username_here/YourUser/" /var/www/html/wp-config.php
-sudo sed -i "s/password_here/YourPassword./" /var/www/html/wp-config.php
-sudo sed -i "s/localhost/localhost/" /var/www/html/wp-config.php
+- sudo cp /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
+- sudo sed -i "s/database_name_here/wordpress/" /var/www/html/wp-config.php
+- sudo sed -i "s/username_here/YourUser/" /var/www/html/wp-config.php
+- sudo sed -i "s/password_here/YourPassword./" /var/www/html/wp-config.php
+- sudo sed -i "s/localhost/localhost/" /var/www/html/wp-config.php
 
 ## Step 11 - Configure Apache virtual host:
 
@@ -135,15 +135,15 @@ Ensure the configuration file for the default virtual host is exactly the same a
 
 ## Step 12 - Enable Apache mod_rewrite
 
-sudo a2enmod rewrite
+- sudo a2enmod rewrite
 
 ## Step 13 - Restart Apache to apply changes
-sudo systemctl restart apache2
+- sudo systemctl restart apache2
 
 ## Step 14 - Backup default index.html if present
-if [ -f /var/www/html/index.html ]; then
+- if [ -f /var/www/html/index.html ]; then
     mv /var/www/html/index.html /var/www/html/index.html.bak
-fi
+- fi
 
 
 ## Step 15 - Launching Wordpress page:
@@ -158,4 +158,5 @@ In order to deploy the wordpress page onto your EC2 instance without using an SS
 
 ![Advanced](<advance settinngs.png>)
 
-Alternatively, if an EC2 instance is launched, you can stop the instance, then edit user data, enter your batch script and re-launch the instance following rebooting. This allows the automation of your wordpress deployment without having to locally connect to your instance. The bash script for this project will be found in the 
+Alternatively, if an EC2 instance is launched, you can stop the instance, then edit user data, enter your batch script and re-launch the instance following rebooting. This allows the automation of your wordpress deployment without having to locally connect to your instance. The bash script for this project will be found in the README.md file.
+
