@@ -11,8 +11,8 @@ In this project I aim to learn how a VPC works and how a virtual computer can be
 #!/bin/bash
 
 # Update and upgrade system packages
-- apt update -y
-- apt upgrade -y
+'''apt update -y
+apt upgrade -y'''
 
 # Install Apache
 - apt install apache2 -y
