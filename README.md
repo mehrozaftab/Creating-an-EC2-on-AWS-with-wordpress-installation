@@ -20,9 +20,9 @@ In this project I aim to learn how a VPC works and how a virtual computer can be
 - systemctl enable apache2
 
 # Install MySQL
-- apt install mysql-server -y
+{- apt install mysql-server -y
 - systemctl start mysql
-- systemctl enable mysql
+- systemctl enable mysql}
 
 # Secure MySQL installation
 - mysql_secure_installation <<EOF
