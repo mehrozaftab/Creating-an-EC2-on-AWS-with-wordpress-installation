@@ -1,4 +1,4 @@
-﻿### My introductory AWS project to creating a Virtual Private Cloud (VPC)
+### My introductory AWS project to creating a Virtual Private Cloud (VPC)
 
 # Introduction into VPC, subnet and regions:
 
@@ -45,20 +45,18 @@ Instance state is present running which confirms that the EC2 instance has been 
 Connect to your instance then press SSH client which will give you a chmod 400 command with your key file. Before copying this command to your terminal, ensure you locate your private key file. As the .PEM key will be located in Downloads, change directory to Downloads and list the content of Downloads.
 This can be done by using the following commands:
 
-'cd Downloads
+cd Downloads
 ls
 chmod 400 "your-key.pem"
 ssh -i "your-key.pem" yourusername@yourpublicIP.yourVPCregion.compute.amazonaws.com'
 
  
 Replace "your-key" with the name of your own created key pair
- The chmod 400 will allow you appropriate permissions.
- By using the ssh command from your instance you can now fully connect to your instance on your terminal. The ssh command will appear as 
+The chmod 400 will allow you appropriate permissions.
+By using the ssh command from your instance you can now fully connect to your instance on your terminal. The ssh command will appear as 
 
 You will now see that the username on your terminal will now change from your computer device to that of your EC2 instance username
 This confirms that now you are connected to your EC2 instance locally.
-
-### Update and Upgrade System Packages
 
 ```bash
 sudo apt update -y
@@ -160,4 +158,4 @@ In order to deploy the wordpress page onto your EC2 instance without using an SS
 
 ![Advanced](<advance settinngs.png>)
 
-Alternatively, if an EC2 instance is launched, you can stop the instance, then edit user data, enter your batch script and re-launch the instance following rebooting. This allows the automation of your wordpress deployment without having to locally connect to your instance. The bash script for this project will be found in the README.md file.
+Alternatively, if an EC2 instance is launched, you can stop the instance, then edit user data, enter your batch script and re-launch the instance following rebooting. This allows the automation of your wordpress deployment without having to locally connect to your instance. The bash script for this project will be found in the 
